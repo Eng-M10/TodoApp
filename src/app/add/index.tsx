@@ -19,6 +19,8 @@ export default function Add() {
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
   const [selected, setSelected] = useState(null)
+  const [textcaracter, setTextCaracter] = useState(0)
+  const maxLengt = 120
 
   const onChange = ({ event, selectedDate }: Props) => {
     if (event.type === "dismissed") {
@@ -48,15 +50,16 @@ export default function Add() {
       </View>
 
       <View style={styles.form}>
-        <Text style={styles.label}>Task Title</Text>
+        <Text style={styles.label}>Task Title :</Text>
         <TextInput style={styles.input} placeholder='Title' />
 
-        <Text style={styles.label}>Descriptions</Text>
+        <Text style={styles.label}>Descriptions :</Text>
 
         <TextInput
           style={styles.textarea}
+          onChangeText={(value) => setTextCaracter(value.length)}
           numberOfLines={4}
-          maxLength={120}
+          maxLength={maxLengt}
           placeholder={'Describe the new task here...'}
           textAlignVertical="top"
           underlineColorAndroid={'transparent'}
@@ -69,10 +72,10 @@ export default function Add() {
           marginRight: 8
         }]}
         >
-          0/21
+          {textcaracter}/{maxLengt}
         </Text>
 
-        <Text style={styles.label}>Due Date</Text>
+        <Text style={styles.label}>Due Date:</Text>
         <TouchableOpacity onPress={showDatepicker} >
           <View style={styles.dateTextContainer} >
             <Text style={styles.dateText}>{date.toLocaleDateString()}</Text>
@@ -89,7 +92,7 @@ export default function Add() {
             />
           )}
         </TouchableOpacity>
-        <Text style={styles.label}>Priority</Text>
+        <Text style={styles.label}>Priority :</Text>
 
         <Select
           onValueChange={
